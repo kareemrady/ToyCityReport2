@@ -17,7 +17,7 @@ end
 
 def date_suffix(date_obj)
 	day_of_month = date_obj.day
-	days_with_special_suffix = {1 => "st", 2 => "nd", 3 => "rd", 31 => "st"}
+	days_with_special_suffix = {1 => "st", 2 => "nd", 3 => "rd", 31 => "st", 21 => "st", 22 => "nd", 23 => "rd"}
 	days_with_special_suffix_array = days_with_special_suffix.keys
 	days_with_special_suffix_array.include?(day_of_month) ? days_with_special_suffix[day_of_month] : "th"
 end
@@ -33,29 +33,10 @@ end
 
 products_hash = json_reader
 
-
-# Print today's date
-# creating a date time object and converting it to a date object in my local time zone
-
 date_object = get_date_now
-
-
 
 formatted_date = date_formatter(date_object)
 
-# #Creating a hash to store days of month with special suffix
-# days_with_special_suffix = {1 => "st", 2 => "nd", 3 => "rd", 31 => "st"}
-#
-# #pulling all the keys as an array
-# days_with_special_suffix_array = days_with_special_suffix.keys
-#
-# #extracting day of month from the date
-# day_of_month = date_object.day
-#
-# #ternary operation to determine the correct suffix for a give day of month
-# suffix = days_with_special_suffix_array.include?(day_of_month) ? days_with_special_suffix[day_of_month] : "th"
-
-#using strftime method to format the date in the following format ex - Sunday, 14th of Apr 2016
 puts ""
 puts formatted_date
 
@@ -130,49 +111,110 @@ end
 per_toy_details(products_hash, "items")
 
 
+def brands_report_title_printer
+		puts " _                         _     "
+		puts "| |                       | |    "
+		puts "| |__  _ __ __ _ _ __   __| |___ "
+		puts "| '_ \\| '__/ _` | '_ \\ / _` / __|"
+		puts "| |_) | | | (_| | | | | (_| \\__ \\"
+		puts "|_.__/|_|  \\__,_|_| |_|\\__,_|___/"
+		puts
 
-#
-#
-# # For each product in the data set:
-#   # Print the name of the toy
-# 	def retail_price_from_hash(hash, main_hash_key, retail_price_key )
-# 		retail_price = 0
-# 		hash[main_hash_key].each do |item|
-# 			retail_price = item[retail_price_key].to_f
-# 		end
-# 		retail_price
+end
+
+brands_report_title_printer
+
+def generate_products_per_brand_hash(hash_all_products, options = {})
+	items_key = options[:items_key] || "items"
+	brand_key = options[:brand_key] || "brand"
+	products_per_brand = hash_all_products[items_key].group_by {|item| item[brand_key]}
+end
+
+
+
+
+
+# my old methods - decided to go a different as suggested by my last project's reviewer
+
+# def find_unique_brands(hash, main_key, brand_key)
+# 	unique_brands = []
+# 	hash[main_key].each do |item|
+# 		unique_brands.push(item[brand_key]) unless unique_brands.include?(item[brand_key])
 # 	end
-#
-# 		total_actual_sales = 0
-# 		retail_price = retail_price_from_hash(products_hash, "items", "full-price")
-# 		#puts "Toy : #{item["title"]}"
-# 		puts "Retail Price: #{retail_price}$"
-# 		#num_of_purchases = item["purchases"].count
-# 		#total_expected_sales = (num_of_purchases * retail_price)
-# 		#puts "Total Number of Purchases : #{num_of_purchases}"
-# 		# item["purchases"].each do |purchase|
-# 		# 	total_actual_sales += purchase["price"]
-# 		# end
-# 		# Used Inject as per the reviewer's suggestion - Thanks
-# 		# total_actual_sales = item["purchases"].inject(0) {|sum, value| sum + value["price"]}
-# 		# puts "Total Amount of Sales = #{total_actual_sales}$"
-# 		# average_price_toy = total_actual_sales /num_of_purchases
-# 		# puts "Average Price of Toy : #{average_price_toy}$"
-# 		# average_discount = (average_price_toy  - retail_price).abs
-# 		# puts "Average Discount in $: #{average_discount}$"
-# 		# puts "Average Discount % : #{(average_discount / retail_price * 100).round(2)}%"
-# 		# puts ""
-# 		# puts "-----------------------------------------------------------------------------"
-# 		# puts ""
+# 	unique_brands
+# end
 #
 #
 #
-#   # Print the retail price of the toy
+# def generate_brand_hash(hash, main_key, brand_name, brand_key="brand")
+# 	key_brand = {}
+#  	key_brand[brand_name] = hash[main_key].select {|item| item[brand_key] == brand_name }
+# 	key_brand
+# end
 #
-#   # Calculate and print the total number of purchases
-#   # Calculate and print the total amount of sales
-#   # Calculate and print the average price the toy sold for
-#   # Calculate and print the average discount (% or $) based off the average sales price
+def print_brand_name(name)
+	puts "#{name}"
+	puts "*********************"
+
+end
+
+# def find_number_products_per_brand_in_stock(brand_name, brand_hash, options = {})
+# 	in_stock = 0
+# 	stock_key = options[:stock_key] || "stock"
+# 	brand_hash.values.each do |arr|
+# 		arr.each do |hash|
+# 			in_stock += hash[stock_key]
+# 		end
+# 	end
+# 	in_stock
+# end
+#
+# def find_num_products_per_brand(brand_hash)
+# end
+
+
+# def per_brand_details(hash_all_products, items_key , brand_key)
+# 	unique_brands_array = find_unique_brands(hash_all_products, items_key, brand_key)
+# 	unique_brands_array.each do |brand|
+# 		key_brand_hash = generate_brand_hash(hash_all_products, items_key, brand )
+# 		print_brand_name(brand)
+# 		puts "Number of Products : #{find_number_products_per_brand_in_stock(brand, key_brand_hash)}"
+# 	end
+# end
+#
+# per_brand_details(products_hash, "items", "brand")
+def calculate_in_stock_products_per_brand(arr_of_hashes, stock_key = "stock")
+	products_per_brand_in_stock = arr_of_hashes.map {|item| item[stock_key]}.reduce(:+)
+end
+
+def calculate_average_toy_price_per_brand(arr_of_hashes, options = {})
+
+	price_key = options[:price_key] || "full-price"
+	purchases_key = options[:purchases_key] || "purchases"
+	total_full_price = arr_of_hashes.map {|item| item[price_key].to_f}.inject(:+)
+	total_toys_per_brand = arr_of_hashes.size
+	(total_full_price / total_toys_per_brand).round(2)
+end
+
+def calculate_total_sales_per_brand(arr_hashes, options = {})
+	purchases_key = options[:purchases_key] || "purchases"
+	price_key = options[:price_key] || "price"
+	total_sales = arr_hashes.map{|item| item[purchases_key].map{|p| p[price_key]}.reduce(:+)}.reduce(:+).round(2)
+end
+
+def products_per_brand_details(all_products_hash, options = {})
+	products_per_brand = generate_products_per_brand_hash(all_products_hash)
+	products_per_brand.each do |key, value|
+		print_brand_name(key)
+		puts "Number of Products : #{calculate_in_stock_products_per_brand(value)}"
+		puts "Average Product Price : #{calculate_average_toy_price_per_brand(value)}$"
+		puts "Total Sales : #{calculate_total_sales_per_brand(value)}$"
+		puts 
+	end
+end
+
+products_per_brand_details(products_hash)
+
 #
 #
 #
