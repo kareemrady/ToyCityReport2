@@ -73,46 +73,61 @@ end
 
 products_report_title_printer
 
-def toys_hash_details
+
+
+
+def print_toy_name(toy_hash, name_key)
+	puts "#{toy_hash[name_key]}"
+	puts "*********************"
 
 end
 
-def find_unique_brands(hash, main_key, brand_key)
-	unique_brands = []
-	hash[main_key].each do |item|
-		unique_brands.push(item[brand_key]) unless unique_brands.include?(item[brand_key])
+
+def find_retail_price_from_hash(toy_hash, retail_price_key )
+	retail_price = toy_hash[retail_price_key].to_f.round(2)
+end
+
+def find_total_number_purchases(toy_hash, purchases_key)
+	toy_hash[purchases_key].count
+end
+
+def calculate_total_sales(toy_hash, purchases_key, price_key )
+	total_sales = toy_hash[purchases_key].inject(0) {|sum, value| sum + value[price_key]}
+end
+def calculate_average_price_per_toy(toy_hash)
+	total_sales = calculate_total_sales(toy_hash, "purchases", "price")
+	num_purchases = find_total_number_purchases(toy_hash, "purchases")
+	total_sales / num_purchases
+end
+
+def calculate_average_discount_per_toy_dollars(toy_hash)
+	average_price = calculate_average_price_per_toy(toy_hash)
+	retail_price = find_retail_price_from_hash(toy_hash, "full-price" )
+	(average_price - retail_price).abs
+end
+
+def calculate_average_discount_per_toy_percentage(toy_hash)
+	average_discount = calculate_average_discount_per_toy_dollars(toy_hash)
+	retail_price = find_retail_price_from_hash(toy_hash, "full-price" )
+	(average_discount / retail_price * 100).round(2)
+end
+
+
+def per_toy_details(hash_products, items_key)
+	hash_products[items_key].each do |item|
+		print_toy_name(item, "title")
+		puts "Retail Price : #{find_retail_price_from_hash(item, "full-price")}$"
+		puts "Total Purchases : #{find_total_number_purchases(item, "purchases")}"
+		puts "Total Sales : #{calculate_total_sales(item, "purchases", "price")}$"
+		puts "Average Price : #{calculate_average_price_per_toy(item)}$"
+		puts "Average Discount in $: #{calculate_average_discount_per_toy_dollars(item)}$"
+		puts "Average Discount % : #{calculate_average_discount_per_toy_percentage(item)}%"
+		puts
 	end
-	unique_brands
-end
-
-unique_brands_array = find_unique_brands(products_hash, "items", "brand")
-
-def generate_brand_hash(hash, main_key, unique_array, brand_key)
-	key_brand = {}
-	unique_array.each do |brand|
- 		key_brand[brand] = hash[main_key].select {|item| item[brand_key] == brand }
-	end
-	key_brand
-end
-
-key_brand_hash = generate_brand_hash(products_hash, "items", unique_brands_array, "brand" )
-
-
-def per_brand_toys_details
 end
 
 
-def print_brand_name(brand_name)
-	puts "Brand Name: #{brand_name}"
-end
-
-def find_toys_in_stock(hash, stock_key)
-	in_stock = 0
-	hash.values.each do |value_arr|
-		value_arr.each do |hash_product|
-			in_stock += hash_product[stock_key]
-	end
-end
+per_toy_details(products_hash, "items")
 
 
 
@@ -225,3 +240,23 @@ end
 # 	puts "------------------------------------------------------------------------------------"
 # 	puts ""
 # end
+
+# def find_unique_brands(hash, main_key, brand_key)
+# 	unique_brands = []
+# 	hash[main_key].each do |item|
+# 		unique_brands.push(item[brand_key]) unless unique_brands.include?(item[brand_key])
+# 	end
+# 	unique_brands
+# end
+#
+# unique_brands_array = find_unique_brands(products_hash, "items", "brand")
+#
+# def generate_brand_hash(hash, main_key, unique_array, brand_key)
+# 	key_brand = {}
+# 	unique_array.each do |brand|
+#  		key_brand[brand] = hash[main_key].select {|item| item[brand_key] == brand }
+# 	end
+# 	key_brand
+# end
+#
+# key_brand_hash = generate_brand_hash(products_hash, "items", unique_brands_array, "brand" )
