@@ -30,16 +30,6 @@ def date_formatter(date_obj)
 end
 
 
-
-products_hash = json_reader
-
-date_object = get_date_now
-
-formatted_date = date_formatter(date_object)
-
-puts ""
-puts formatted_date
-
 def products_report_title_printer
 	puts "                     _            _       "
 	puts "                    | |          | |      "
@@ -51,8 +41,6 @@ def products_report_title_printer
 	puts "|_|                                       "
 	puts ""
 end
-
-products_report_title_printer
 
 
 
@@ -108,8 +96,6 @@ def per_toy_details(hash_products, items_key)
 end
 
 
-per_toy_details(products_hash, "items")
-
 
 def brands_report_title_printer
 		puts " _                         _     "
@@ -122,7 +108,7 @@ def brands_report_title_printer
 
 end
 
-brands_report_title_printer
+
 
 def generate_products_per_brand_hash(hash_all_products, options = {})
 	items_key = options[:items_key] || "items"
@@ -133,56 +119,13 @@ end
 
 
 
-
-# my old methods - decided to go a different as suggested by my last project's reviewer
-
-# def find_unique_brands(hash, main_key, brand_key)
-# 	unique_brands = []
-# 	hash[main_key].each do |item|
-# 		unique_brands.push(item[brand_key]) unless unique_brands.include?(item[brand_key])
-# 	end
-# 	unique_brands
-# end
-#
-#
-#
-# def generate_brand_hash(hash, main_key, brand_name, brand_key="brand")
-# 	key_brand = {}
-#  	key_brand[brand_name] = hash[main_key].select {|item| item[brand_key] == brand_name }
-# 	key_brand
-# end
-#
 def print_brand_name(name)
 	puts "#{name}"
 	puts "*********************"
 
 end
 
-# def find_number_products_per_brand_in_stock(brand_name, brand_hash, options = {})
-# 	in_stock = 0
-# 	stock_key = options[:stock_key] || "stock"
-# 	brand_hash.values.each do |arr|
-# 		arr.each do |hash|
-# 			in_stock += hash[stock_key]
-# 		end
-# 	end
-# 	in_stock
-# end
-#
-# def find_num_products_per_brand(brand_hash)
-# end
 
-
-# def per_brand_details(hash_all_products, items_key , brand_key)
-# 	unique_brands_array = find_unique_brands(hash_all_products, items_key, brand_key)
-# 	unique_brands_array.each do |brand|
-# 		key_brand_hash = generate_brand_hash(hash_all_products, items_key, brand )
-# 		print_brand_name(brand)
-# 		puts "Number of Products : #{find_number_products_per_brand_in_stock(brand, key_brand_hash)}"
-# 	end
-# end
-#
-# per_brand_details(products_hash, "items", "brand")
 def calculate_in_stock_products_per_brand(arr_of_hashes, stock_key = "stock")
 	products_per_brand_in_stock = arr_of_hashes.map {|item| item[stock_key]}.reduce(:+)
 end
@@ -209,96 +152,26 @@ def products_per_brand_details(all_products_hash, options = {})
 		puts "Number of Products : #{calculate_in_stock_products_per_brand(value)}"
 		puts "Average Product Price : #{calculate_average_toy_price_per_brand(value)}$"
 		puts "Total Sales : #{calculate_total_sales_per_brand(value)}$"
-		puts 
+		puts
 	end
 end
 
-products_per_brand_details(products_hash)
 
-#
-#
-#
-#
-#
-# 	puts " _                         _     "
-# 	puts "| |                       | |    "
-# 	puts "| |__  _ __ __ _ _ __   __| |___ "
-# 	puts "| '_ \\| '__/ _` | '_ \\ / _` / __|"
-# 	puts "| |_) | | | (_| | | | | (_| \\__ \\"
-# 	puts "|_.__/|_|  \\__,_|_| |_|\\__,_|___/"
-# 	puts
-#
-# # For each brand in the data set:
-#   # Print the name of the brand
-#   # Count and print the number of the brand's toys we stock
-#   # Calculate and print the average price of the brand's toys
-#   # Calculate and print the total revenue of all the brand's toy sales combined
-#
-# # create a unique brands array to group all Toys for each brand
-# def unique_brands(hash_brands, key_main_hash, key_sec_hash)
-# 	unique_brands = []
-# 	hash_brands[key_main_hash].each do |item|
-# 		unique_brands.push(item[key_sec_hash]) unless unique_brands.include?(item[key_sec_hash])
-# 		end
-# 	unique_brands
-# end
-#
-# uniq_brands = unique_brands(products_hash, "items", "brand")
-#
-# uniq_brands.each do |brand|
-#
-# 	key_brand = {}
-# 	#loop through each brand and populate the key_brand hash with all toys grouped in an array for a specific brand -> key
-#  	key_brand[brand] = products_hash["items"].select {|item| item["brand"] == brand }
-#
-# 	#initialize variables to be used to keep track of purchases and in stock numbers
-#   in_stock = 0
-# 	purchases_arr = []
-# 	full_price_per_brand = 0
-# 	#loop through the values array of the hash
-# 	num_products_per_brand = 0
-# 	key_brand.values.each do |v|
-# 		num_products_per_brand = v.count
-# 		#foreach hash in the array
-# 		v.each do |a|
-# 			in_stock += a["stock"]
-# 			purchases_arr.push(a["purchases"])
-# 			full_price_per_brand += a["full-price"].to_f
-# 		end
-# 	end
-# 	total_sales = 0
-# 	total_number_toys_sold = 0
-# 	purchases_arr.each do |a|
-# 		a.each do |hash|
-# 			total_sales += hash["price"]
-# 			total_number_toys_sold += 1
-# 		end
-# 	end
-# 	puts ""
-# 	puts "Brand Name: #{brand}"
-# 	puts "#{brand}'s Toys In Stock : #{in_stock} "
-# 	puts "#{brand}'s Average Toy Price : #{(full_price_per_brand / num_products_per_brand).round(2)}$ "
-# 	puts "#{brand}'s Total Sales : #{total_sales.round(2)}$ "
-# 	puts "------------------------------------------------------------------------------------"
-# 	puts ""
-# end
+def start
+	products_hash = json_reader
 
-# def find_unique_brands(hash, main_key, brand_key)
-# 	unique_brands = []
-# 	hash[main_key].each do |item|
-# 		unique_brands.push(item[brand_key]) unless unique_brands.include?(item[brand_key])
-# 	end
-# 	unique_brands
-# end
-#
-# unique_brands_array = find_unique_brands(products_hash, "items", "brand")
-#
-# def generate_brand_hash(hash, main_key, unique_array, brand_key)
-# 	key_brand = {}
-# 	unique_array.each do |brand|
-#  		key_brand[brand] = hash[main_key].select {|item| item[brand_key] == brand }
-# 	end
-# 	key_brand
-# end
-#
-# key_brand_hash = generate_brand_hash(products_hash, "items", unique_brands_array, "brand" )
+	date_object = get_date_now
+
+	formatted_date = date_formatter(date_object)
+
+	puts ""
+	puts formatted_date
+	products_report_title_printer
+	per_toy_details(products_hash, "items")
+	brands_report_title_printer
+	products_per_brand_details(products_hash)
+
+end
+
+
+start
