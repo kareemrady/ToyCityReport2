@@ -1,7 +1,13 @@
 require 'json'
 #add date class
 require 'date'
+# require 'artii'
 
+def write_to_file(line, file_name = "../report.txt")
+	open(file_name, 'a') { |f|
+  f << "#{line}\n"
+}
+end
 
 def json_reader
 	path = File.join(File.dirname(__FILE__), '../data/products.json')
@@ -29,25 +35,38 @@ def date_formatter(date_obj)
 	date_obj.strftime("Printed on %A, the %d#{suffix} of %b %Y")
 end
 
+def sales_report_title_printer
+	write_to_file "                                                        "
+	write_to_file "	_____       _            _____                       _"
+	write_to_file "/ ____|     | |          |  __ \                     | |"
+  write_to_file "| (___   __ _| | ___ ___  | |__) |___ _ __   ___  _ __| |_"
+  write_to_file "\___ \ / _` | |/ _ \ __| |  _  // _ \ '_ \ / _ \| '__| __|"
+	write_to_file "____) | (_| | |  __\__ \ | | \ \  __/ |_) | (_) | |  | |_"
+	write_to_file "|_____/ \__,_|_|\___|___/ |_|  \_\___| .__/ \___/|_|   \__|"
+	write_to_file "																	 | |                     "
+	write_to_file "																	 |_|                     "
+	write_to_file ""
+  write_to_file ("*"*100)
+end
 
 def products_report_title_printer
-	puts "                     _            _       "
-	puts "                    | |          | |      "
-	puts " _ __  _ __ ___   __| |_   _  ___| |_ ___ "
-	puts "| '_ \\| '__/ _ \\ / _` | | | |/ __| __/ __|"
-	puts "| |_) | | | (_) | (_| | |_| | (__| |_\\__ \\"
-	puts "| .__/|_|  \\___/ \\__,_|\\__,_|\\___|\\__|___/"
-	puts "| |                                       "
-	puts "|_|                                       "
-	puts ""
+	write_to_file "                     _            _       "
+	write_to_file "                    | |          | |      "
+	write_to_file " _ __  _ __ ___   __| |_   _  ___| |_ ___ "
+	write_to_file "| '_ \\| '__/ _ \\ / _` | | | |/ __| __/ __|"
+	write_to_file "| |_) | | | (_) | (_| | |_| | (__| |_\\__ \\"
+	write_to_file "| .__/|_|  \\___/ \\__,_|\\__,_|\\___|\\__|___/"
+	write_to_file "| |                                       "
+	write_to_file "|_|                                       "
+	write_to_file ""
 end
 
 
 
 
 def print_toy_name(toy_hash, name_key)
-	puts "#{toy_hash[name_key]}"
-	puts "*********************"
+	write_to_file "#{toy_hash[name_key]}"
+	write_to_file "*********************"
 
 end
 
@@ -85,26 +104,26 @@ end
 def per_toy_details(hash_products, items_key)
 	hash_products[items_key].each do |item|
 		print_toy_name(item, "title")
-		puts "Retail Price : #{find_retail_price_from_hash(item, "full-price")}$"
-		puts "Total Purchases : #{find_total_number_purchases(item, "purchases")}"
-		puts "Total Sales : #{calculate_total_sales(item, "purchases", "price")}$"
-		puts "Average Price : #{calculate_average_price_per_toy(item)}$"
-		puts "Average Discount in $: #{calculate_average_discount_per_toy_dollars(item)}$"
-		puts "Average Discount % : #{calculate_average_discount_per_toy_percentage(item)}%"
-		puts
+		write_to_file "Retail Price : #{find_retail_price_from_hash(item, "full-price")}$"
+		write_to_file "Total Purchases : #{find_total_number_purchases(item, "purchases")}"
+		write_to_file "Total Sales : #{calculate_total_sales(item, "purchases", "price")}$"
+		write_to_file "Average Price : #{calculate_average_price_per_toy(item)}$"
+		write_to_file "Average Discount in $: #{calculate_average_discount_per_toy_dollars(item)}$"
+		write_to_file "Average Discount % : #{calculate_average_discount_per_toy_percentage(item)}%"
+		write_to_file ""
 	end
 end
 
 
 
 def brands_report_title_printer
-		puts " _                         _     "
-		puts "| |                       | |    "
-		puts "| |__  _ __ __ _ _ __   __| |___ "
-		puts "| '_ \\| '__/ _` | '_ \\ / _` / __|"
-		puts "| |_) | | | (_| | | | | (_| \\__ \\"
-		puts "|_.__/|_|  \\__,_|_| |_|\\__,_|___/"
-		puts
+		write_to_file " _                         _     "
+		write_to_file "| |                       | |    "
+		write_to_file "| |__  _ __ __ _ _ __   __| |___ "
+		write_to_file "| '_ \\| '__/ _` | '_ \\ / _` / __|"
+		write_to_file "| |_) | | | (_| | | | | (_| \\__ \\"
+		write_to_file "|_.__/|_|  \\__,_|_| |_|\\__,_|___/"
+		write_to_file ""
 
 end
 
@@ -120,8 +139,8 @@ end
 
 
 def print_brand_name(name)
-	puts "#{name}"
-	puts "*********************"
+	write_to_file "#{name}"
+	write_to_file "*********************"
 
 end
 
@@ -149,10 +168,10 @@ def products_per_brand_details(all_products_hash, options = {})
 	products_per_brand = generate_products_per_brand_hash(all_products_hash)
 	products_per_brand.each do |key, value|
 		print_brand_name(key)
-		puts "Number of Products : #{calculate_in_stock_products_per_brand(value)}"
-		puts "Average Product Price : #{calculate_average_toy_price_per_brand(value)}$"
-		puts "Total Sales : #{calculate_total_sales_per_brand(value)}$"
-		puts
+		write_to_file "Number of Products : #{calculate_in_stock_products_per_brand(value)}"
+		write_to_file "Average Product Price : #{calculate_average_toy_price_per_brand(value)}$"
+		write_to_file "Total Sales : #{calculate_total_sales_per_brand(value)}$"
+		write_to_file ""
 	end
 end
 
@@ -164,8 +183,9 @@ def start
 
 	formatted_date = date_formatter(date_object)
 
-	puts ""
-	puts formatted_date
+	write_to_file ""
+	write_to_file "#{formatted_date}"
+	sales_report_title_printer
 	products_report_title_printer
 	per_toy_details(products_hash, "items")
 	brands_report_title_printer

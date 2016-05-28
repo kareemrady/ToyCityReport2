@@ -57,63 +57,72 @@ The result of running your report generator code will look something like this. 
 ​
 
 Terminal output will look something like this:
-​
+
 ```
-Today's Date: 03/01/2016
-                     _            _       
-                    | |          | |      
+​
+Printed on Saturday, the 28th of May 2016
+   _____       _            _____                       _
+  / ____|     | |          |  __ \                     | |
+ | (___   __ _| | ___ ___  | |__) |___ _ __   ___  _ __| |_
+  \___ \ / _` | |/ _ \ __| |  _  // _ \ '_ \ / _ \| '__| __|
+  ____) | (_| | |  __\__ \ | | \ \  __/ |_) | (_) | |  | |_
+ |_____/ \__,_|_|\___|___/ |_|  \_\___| .__/ \___/|_|   \__|
+                                      | |
+                                      |_|
+****************************************************************************************************
+                     _            _
+                    | |          | |
  _ __  _ __ ___   __| |_   _  ___| |_ ___
 | '_ \| '__/ _ \ / _` | | | |/ __| __/ __|
 | |_) | | | (_) | (_| | |_| | (__| |_\__ \
 | .__/|_|  \___/ \__,_|\__,_|\___|\__|___/
-| |                                       
-|_|                                       
-​
+| |
+|_|
+
 LEGO Iron Man vs. Ultron
-********************
-Retail Price: $22.99
-Total Purchases: 2
-Total Sales: $36.98
-Average Price: $18.49
-Average Discount: $4.5
-Average Discount Percentage: 19.57%
-********************
-​
+*********************
+Retail Price : 22.99$
+Total Purchases : 2
+Total Sales : 36.98$
+Average Price : 18.49$
+Average Discount in $: 4.5$
+Average Discount % : 19.57%
+
 Nano Block Empire State Building
-********************
-Retail Price: $49.99
-Total Purchases: 2
-Total Sales: $68.98
-Average Price: $34.49
-Average Discount: $15.5
-Average Discount Percentage: 31.01%
-********************
-​
+*********************
+Retail Price : 49.99$
+Total Purchases : 2
+Total Sales : 68.98$
+Average Price : 34.49$
+Average Discount in $: 15.5$
+Average Discount % : 31.01%
+
 LEGO Firehouse Headquarters
-********************
-Retail Price: $199.99
-Total Purchases: 2
-Total Sales: $379.98
-Average Price: $189.99
-Average Discount: $10.0
-Average Discount Percentage: 5.0%
-​
- _                         _     
-| |                       | |    
+*********************
+Retail Price : 199.99$
+Total Purchases : 2
+Total Sales : 379.98$
+Average Price : 189.99$
+Average Discount in $: 10.0$
+Average Discount % : 5.0%
+
+ _                         _
+| |                       | |
 | |__  _ __ __ _ _ __   __| |___
 | '_ \| '__/ _` | '_ \ / _` / __|
 | |_) | | | (_| | | | | (_| \__ \
 |_.__/|_|  \__,_|_| |_|\__,_|___/
-​
+
 LEGO
-********************
-Number of Products: 55
-Average Product Price: $111.49
-Total Sales: $416.96
-​
-NANO BLOCKS
-********************
-Number of Products: 12
-Average Product Price: 49.99
-Total Sales: $68.98
+*********************
+Number of Products : 55
+Average Product Price : 111.49$
+Total Sales : 416.96$
+
+Nano Blocks
+*********************
+Number of Products : 12
+Average Product Price : 49.99$
+Total Sales : 68.98$
+
 ```
