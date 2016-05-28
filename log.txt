@@ -1,0 +1,29 @@
+commit 087bf87653fd57969aad4f6ff3c1345231191762
+Author: Kareem Rady <kareem_rady@yahoo.com>
+Date:   Sat May 28 18:02:43 2016 +0000
+
+    Added Write to file method and replaced all puts statement with the new method
+
+commit 33820293df27bf18e2164424a203e5181f06b654
+Author: Kareem Rady <kareem_rady@yahoo.com>
+Date:   Sat May 28 16:42:50 2016 +0000
+
+    Clean up and added a start method to start the program
+
+commit a18337329fc3ef24f5c19f35fa6d0da848f51df6
+Author: Kareem Rady <kareem_rady@yahoo.com>
+Date:   Sat May 28 16:36:58 2016 +0000
+
+    ▒<88>Completed Per Brand section of the report
+
+commit 1c475012321cd11223d05268bf571698e1fa5827
+Author: Kareem Rady <kareem_rady@yahoo.com>
+Date:   Sat May 28 01:49:05 2016 +0000
+
+    Completed refactoring the products part in the report
+
+commit 3cab639653e77ec597e8f7780a85f5200a0a4ca4
+Author: Kareem Rady <kareem_rady@yahoo.com>
+Date:   Sat May 28 00:59:37 2016 +0000
+
+    Initial Commit refactored date printing function and some of the methods in the product titles part
